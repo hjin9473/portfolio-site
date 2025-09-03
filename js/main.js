@@ -87,7 +87,7 @@ document.addEventListener('keydown', function (e) {
     modal.style.display = 'none';
     imageModal.style.display = 'none';
   }
-})
+});
 
 // 현재 연도 표시
 // 날짜 정보를 가진 JS의 Date 객체를 활용
@@ -104,27 +104,47 @@ const visualSpanEls = document.querySelectorAll('.visual h1 span');
 // 브라우저는 문서 전체의 스크롤을 window 기준으로 처리(document에 붙이면 일부 브라우저에서는 동작 안 함)
 // window: 브라우저 창 객체
 window.addEventListener('scroll', function () {
-  // console.log(this.window.scrollY); // y축 스크롤 위치
+  // console.log(window.scrollY); // y축 스크롤 위치
 
-  // Quiz:페이지 스크롤 위치가
+  // Quiz: 페이지 스크롤 위치가 
   // 500px을 넘으면 요소를 보이고
   // 500px을 넘지 않으면 요소 숨기기!
-  if (this.window.scrollY >= 500) {
+  if (window.scrollY > 500) {
     toTopEl.style.opacity = '1';
-    toTopEl.style.transform = 'translateX(0px)';
+    toTopEl.style.transform = 'translateX(0)';
 
     // visual 섹션 애니메이션 클래스 빼기
     visualSpanEls.forEach(function (visualSpan) {
       visualSpan.classList.remove('animate-flash');
     });
-    
-  }else{
+  } else {
     toTopEl.style.opacity = '0';
     toTopEl.style.transform = 'translateX(100px)';
-    
+
     // visual 섹션 애니메이션 클래스 넣기
-visualSpanEls.forEach(function (visualSpan) {
-    visualSpan.classList.add('animate-flash');
+    visualSpanEls.forEach(function (visualSpan) {
+      visualSpan.classList.add('animate-flash');
     });
   }
 });
+
+// 모바일용 메뉴
+const hamburgerBtn = document.querySelector('.btn-hamburger');
+const navEl = document.querySelector('header nav');
+const menuItems = document.querySelectorAll('header nav ul li a');
+
+hamburgerBtn.addEventListener('click', function () {
+  navEl.classList.toggle('active');
+});
+
+menuItems.forEach(function (menuItem) {
+  menuItem.addEventListener('click', function () {
+    navEl.classList.remove('active');
+  });
+});
+// 일반 for문 사용
+// for (let i = 0; i < menuItems.length; i++) {
+//   menuItems[i].addEventListener('click', function () {
+//     navEl.classList.remove('active');
+//   });
+// }
